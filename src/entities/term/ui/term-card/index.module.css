@@ -1,0 +1,110 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  @mixin responsive gap, 12, 12, 12;
+  @mixin responsive padding, 10, 12, 12;
+  @mixin responsive border-radius, 10, 12, 12;
+  background: var(--color-surface-muted);
+  opacity: 0.9;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.card:hover,
+.active {
+  background: var(--color-surface);
+  opacity: 1;
+  box-shadow: var(--shadow-card-hover);
+}
+
+.top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  @mixin responsive gap, 12, 12, 12;
+}
+
+.title {
+  margin: 0;
+  @mixin responsive font-size, 14, 15, 16;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--color-text-secondary);
+}
+
+.active .title,
+.card:hover .title {
+  color: var(--color-text);
+}
+
+.termTag {
+  flex-shrink: 0;
+  @mixin responsive padding-top, 2, 2, 2;
+  @mixin responsive padding-bottom, 2, 2, 2;
+  @mixin responsive padding-left, 8, 10, 10;
+  @mixin responsive padding-right, 8, 10, 10;
+  border: 1px solid var(--color-primary-light);
+  @mixin responsive border-radius, 12, 12, 12;
+  background: var(--gradient-term-tag);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  @mixin responsive font-size, 11, 12, 12;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  @mixin responsive gap, 8, 8, 8;
+}
+
+.tagPrimary,
+.tag,
+.tagBtn {
+  @mixin responsive padding-top, 3, 4, 4;
+  @mixin responsive padding-bottom, 3, 4, 4;
+  @mixin responsive padding-left, 10, 12, 12;
+  @mixin responsive padding-right, 10, 12, 12;
+  @mixin responsive border-radius, 14, 14, 14;
+  @mixin responsive font-size, 12, 13, 14;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.tagBtn {
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.tagPrimary {
+  background: var(--color-primary-dark);
+  color: var(--color-text-inverse);
+}
+
+.tag {
+  background: var(--color-primary-tint-12);
+  color: var(--color-primary-dark);
+}
+
+.descriptionWrap {
+  display: flex;
+  @mixin responsive gap, 4, 4, 4;
+  align-items: flex-start;
+}
+
+.infoIcon {
+  flex-shrink: 0;
+  color: var(--color-text-disabled);
+  @mixin responsive margin-top, 1, 1, 1;
+}
+
+.description {
+  margin: 0;
+  @mixin responsive font-size, 11, 12, 12;
+  line-height: 1.33;
+  color: var(--color-text-disabled);
+}

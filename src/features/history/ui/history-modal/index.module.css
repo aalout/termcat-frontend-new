@@ -1,0 +1,72 @@
+.modal {
+  @mixin responsive padding-top, 4, 4, 8;
+  @mixin responsive padding-right, 8, 12, 16;
+  @mixin responsive padding-bottom, 8, 12, 16;
+  @mixin responsive padding-left, 8, 12, 16;
+}
+
+.title {
+  margin: 0;
+  @mixin responsive margin-bottom, 16, 16, 16;
+  @mixin responsive font-size, 18, 20, 22;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  @mixin responsive gap, 4, 4, 4;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  @mixin responsive gap, 12, 12, 12;
+  @mixin responsive padding, 10, 12, 14;
+  @mixin responsive border-radius, 10, 10, 12;
+  transition: background-color 0.15s ease;
+}
+
+.item:hover {
+  background: var(--color-bg);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  @mixin responsive width, 32, 36, 36;
+  @mixin responsive height, 32, 36, 36;
+  @mixin responsive border-radius, 8, 8, 8;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.content {
+  min-width: 0;
+}
+
+.itemTitle {
+  margin: 0;
+  @mixin responsive margin-bottom, 4, 4, 4;
+  @mixin responsive font-size, 14, 15, 15;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.meta {
+  margin: 0;
+  @mixin responsive font-size, 12, 13, 13;
+  color: var(--color-text-secondary);
+}
+
+.empty {
+  @mixin responsive padding, 12, 14, 16;
+  @mixin responsive font-size, 14, 14, 15;
+  color: var(--color-text-secondary);
+}

@@ -1,0 +1,29 @@
+.root {
+  position: relative;
+  display: inline-flex;
+}
+
+.trigger {
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.content {
+  position: fixed;
+  z-index: 50;
+  @mixin responsive min-width, 220, 220, 220;
+  border: 1px solid var(--color-border);
+  @mixin responsive border-radius, 12, 12, 12;
+  background: var(--color-surface);
+  @mixin responsive-shadow-dropdown;
+  overflow: hidden;
+}
+
+.alignRight,
+.alignLeft {
+  /* positioning via inline styles */
+}

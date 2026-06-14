@@ -1,0 +1,83 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: var(--color-primary-tint-12);
+  @mixin responsive padding-top, 16, 20, 24;
+  @mixin responsive padding-left, 8, 10, 12;
+  @mixin responsive padding-right, 8, 10, 12;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @mixin responsive gap, 12, 12, 12;
+  @mixin responsive margin-bottom, 16, 20, 24;
+}
+
+.title {
+  margin: 0;
+  @mixin responsive font-size, 16, 17, 18;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+}
+
+.badge {
+  @mixin responsive padding-top, 2, 2, 2;
+  @mixin responsive padding-bottom, 2, 2, 2;
+  @mixin responsive padding-left, 8, 10, 10;
+  @mixin responsive padding-right, 8, 10, 10;
+  @mixin responsive border-radius, 12, 12, 12;
+  background: var(--color-primary-tint-25);
+  color: var(--color-primary-dark);
+  @mixin responsive font-size, 12, 13, 14;
+  font-weight: 700;
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  @mixin responsive gap, 12, 12, 12;
+}
+
+.list {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  @mixin responsive gap, 12, 12, 12;
+  @mixin responsive padding-bottom, 8, 12, 12;
+}
+
+.emptyWrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.emptyImage {
+  width: 100%;
+  @mixin responsive-max-width 244, 244, 244;
+  height: auto;
+}
+
+.exportBtn {
+  width: 100%;
+  margin-top: auto;
+  @mixin responsive margin-bottom, 12, 16, 20;
+}
+
+.soonBadge {
+  @mixin responsive font-size, 11, 12, 12;
+  color: var(--color-text-disabled);
+  font-weight: 400;
+}

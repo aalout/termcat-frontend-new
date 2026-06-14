@@ -1,0 +1,59 @@
+@define-mixin responsive $property, $v1, $v2, $v3 {
+  $(property): calc($v1 / 480 * 100vw);
+
+  @media (min-width: 1024px) {
+    $(property): calc($v2 / 1024 * 100vw);
+  }
+
+  @media (min-width: 1440px) {
+    $(property): calc($v3 / 1440 * 100vw);
+  }
+}
+
+@define-mixin responsive-max-width $v1, $v2, $v3 {
+  max-width: calc($v1 / 480 * 100vw);
+
+  @media (min-width: 1024px) {
+    max-width: calc($v2 / 1024 * 100vw);
+  }
+
+  @media (min-width: 1440px) {
+    max-width: calc($v3 / 1440 * 100vw);
+  }
+}
+
+@define-mixin responsive-focus-ring $v1, $v2, $v3, $color {
+  box-shadow: 0 0 0 calc($v1 / 480 * 100vw) $color;
+
+  @media (min-width: 1024px) {
+    box-shadow: 0 0 0 calc($v2 / 1024 * 100vw) $color;
+  }
+
+  @media (min-width: 1440px) {
+    box-shadow: 0 0 0 calc($v3 / 1440 * 100vw) $color;
+  }
+}
+
+@define-mixin responsive-shadow-dropdown {
+  box-shadow: 0 calc(12 / 480 * 100vw) calc(32 / 480 * 100vw) rgba(26, 31, 35, 0.12);
+
+  @media (min-width: 1024px) {
+    box-shadow: 0 calc(12 / 1024 * 100vw) calc(32 / 1024 * 100vw) rgba(26, 31, 35, 0.12);
+  }
+
+  @media (min-width: 1440px) {
+    box-shadow: 0 calc(12 / 1440 * 100vw) calc(32 / 1440 * 100vw) rgba(26, 31, 35, 0.12);
+  }
+}
+
+@define-mixin responsive-shadow-modal {
+  box-shadow: 0 calc(24 / 480 * 100vw) calc(48 / 480 * 100vw) rgba(26, 31, 35, 0.18);
+
+  @media (min-width: 1024px) {
+    box-shadow: 0 calc(24 / 1024 * 100vw) calc(48 / 1024 * 100vw) rgba(26, 31, 35, 0.18);
+  }
+
+  @media (min-width: 1440px) {
+    box-shadow: 0 calc(24 / 1440 * 100vw) calc(48 / 1440 * 100vw) rgba(26, 31, 35, 0.18);
+  }
+}

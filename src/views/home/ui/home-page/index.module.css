@@ -1,0 +1,41 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  background: var(--color-app-bg);
+}
+
+.main {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(calc(280 / 480 * 100vw), 33.33%);
+}
+
+@media (min-width: 1024px) {
+  .main {
+    grid-template-columns: minmax(0, 1fr) minmax(
+        calc(280 / 1024 * 100vw),
+        33.33%
+      );
+  }
+}
+
+@media (min-width: 1440px) {
+  .main {
+    grid-template-columns: minmax(0, 1fr) minmax(
+        calc(280 / 1440 * 100vw),
+        33.33%
+      );
+  }
+}
+
+@media (max-width: 1023px) {
+  .main {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) minmax(0, min(42dvh, 360px));
+  }
+}

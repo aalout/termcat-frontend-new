@@ -1,0 +1,126 @@
+.container {
+  position: relative;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  @mixin responsive gap, 3, 4, 4;
+  @mixin responsive padding, 3, 4, 4;
+  @mixin responsive border-radius, 10, 10, 12;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+}
+
+.buttons {
+  gap: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.section {
+  width: 100%;
+  @mixin responsive padding, 4, 4, 4;
+  @mixin responsive border-radius, 12, 12, 12;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+.tab {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  @mixin responsive padding-top, 6, 8, 8;
+  @mixin responsive padding-bottom, 6, 8, 8;
+  @mixin responsive padding-left, 12, 14, 16;
+  @mixin responsive padding-right, 12, 14, 16;
+  border: none;
+  @mixin responsive border-radius, 8, 8, 10;
+  background: transparent;
+  color: var(--color-text-secondary);
+  @mixin responsive font-size, 12, 13, 14;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.tab:focus-visible {
+  outline: none;
+  @mixin responsive-focus-ring 2, 2, 2, var(--color-primary-light);
+}
+
+.tabDisabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.tabActive {
+  color: var(--color-text);
+}
+
+.tabButtons {
+  @mixin responsive padding-top, 6, 8, 8;
+  @mixin responsive padding-bottom, 6, 8, 8;
+  @mixin responsive padding-left, 10, 12, 12;
+  @mixin responsive padding-right, 10, 12, 12;
+  @mixin responsive border-radius, 8, 8, 10;
+}
+
+.tabButtonsActive {
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  box-shadow: 0 calc(1 / 480 * 100vw) calc(3 / 480 * 100vw) rgba(26, 31, 35, 0.08);
+}
+
+@media (min-width: 1024px) {
+  .tabButtonsActive {
+    box-shadow: 0 calc(1 / 1024 * 100vw) calc(3 / 1024 * 100vw) rgba(26, 31, 35, 0.08);
+  }
+}
+
+@media (min-width: 1440px) {
+  .tabButtonsActive {
+    box-shadow: 0 calc(1 / 1440 * 100vw) calc(3 / 1440 * 100vw) rgba(26, 31, 35, 0.08);
+  }
+}
+
+.tabSection {
+  flex: 1;
+  @mixin responsive padding-top, 8, 10, 10;
+  @mixin responsive padding-bottom, 8, 10, 10;
+  @mixin responsive padding-left, 8, 8, 10;
+  @mixin responsive padding-right, 8, 8, 10;
+  @mixin responsive font-size, 12, 13, 13;
+}
+
+.tabSectionActive {
+  color: var(--color-primary);
+}
+
+.background {
+  position: absolute;
+  @mixin responsive top, 4, 4, 4;
+  @mixin responsive bottom, 4, 4, 4;
+  left: 0;
+  @mixin responsive border-radius, 8, 8, 10;
+  background-color: var(--color-surface);
+  box-shadow: 0 calc(1 / 480 * 100vw) calc(3 / 480 * 100vw) rgba(26, 31, 35, 0.08);
+  pointer-events: none;
+  z-index: 0;
+  transition:
+    transform 0.28s cubic-bezier(0.32, 0.72, 0, 1),
+    width 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@media (min-width: 1024px) {
+  .background {
+    box-shadow: 0 calc(1 / 1024 * 100vw) calc(3 / 1024 * 100vw) rgba(26, 31, 35, 0.08);
+  }
+}
+
+@media (min-width: 1440px) {
+  .background {
+    box-shadow: 0 calc(1 / 1440 * 100vw) calc(3 / 1440 * 100vw) rgba(26, 31, 35, 0.08);
+  }
+}

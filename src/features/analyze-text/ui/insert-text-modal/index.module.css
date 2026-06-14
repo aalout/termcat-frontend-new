@@ -1,0 +1,28 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  @mixin responsive gap, 16, 16, 16;
+  @mixin responsive padding-top, 4, 4, 8;
+  @mixin responsive padding-right, 8, 12, 16;
+  @mixin responsive padding-bottom, 8, 12, 16;
+  @mixin responsive padding-left, 8, 12, 16;
+}
+
+.title {
+  margin: 0;
+  @mixin responsive font-size, 18, 20, 22;
+  font-weight: 700;
+}
+
+.modalTextarea {
+  min-height: 120px;
+  max-height: min(36dvh, 240px);
+  resize: none;
+  overflow-y: auto;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  @mixin responsive gap, 8, 8, 8;
+}

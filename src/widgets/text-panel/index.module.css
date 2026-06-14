@@ -1,0 +1,136 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @mixin responsive gap, 12, 12, 12;
+  @mixin responsive padding-top, 12, 14, 16;
+  @mixin responsive padding-bottom, 12, 14, 16;
+  @mixin responsive padding-left, 16, 28, 40;
+  @mixin responsive padding-right, 16, 28, 40;
+}
+
+.toolbarLeft {
+  display: flex;
+  align-items: center;
+  @mixin responsive gap, 10, 10, 10;
+  flex-wrap: wrap;
+}
+
+.insertBtn:hover .insertLabel {
+  background: var(--gradient-insert-hover);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.insertBtn:hover {
+  border-color: var(--color-primary-light);
+}
+
+.langSwitch {
+  display: inline-flex;
+  align-items: center;
+  @mixin responsive gap, 8, 8, 8;
+  @mixin responsive padding-top, 5, 6, 6;
+  @mixin responsive padding-bottom, 5, 6, 6;
+  @mixin responsive padding-left, 20, 24, 28;
+  @mixin responsive padding-right, 20, 24, 28;
+  border: 1px solid var(--color-border);
+  @mixin responsive border-radius, 8, 8, 8;
+  @mixin responsive font-size, 14, 15, 16;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.langSwitch:hover:not(:disabled) {
+  border-color: var(--color-primary-light);
+}
+
+.langSwitch:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.langSwitchSource {
+  border-color: var(--color-primary-light);
+}
+
+.langLabel {
+  transition: color 0.15s ease;
+}
+
+.langActive {
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}
+
+.arrowIcon {
+  color: var(--color-text-secondary);
+}
+
+.content {
+  flex: 1;
+  min-height: 0;
+  @mixin responsive padding-left, 16, 28, 40;
+  @mixin responsive padding-right, 16, 28, 40;
+  @mixin responsive padding-bottom, 16, 20, 24;
+}
+
+.textCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  @mixin responsive border-radius, 12, 12, 12;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  @mixin responsive gap, 12, 12, 12;
+  @mixin responsive padding-top, 14, 16, 18;
+  @mixin responsive padding-bottom, 14, 16, 18;
+  @mixin responsive padding-left, 10, 12, 12;
+  @mixin responsive padding-right, 10, 12, 12;
+  border-bottom: 1px solid var(--color-border);
+  @mixin responsive font-size, 13, 14, 14;
+  color: var(--color-text-disabled);
+}
+
+.textBox {
+  flex: 1;
+  overflow: auto;
+  @mixin responsive padding, 12, 16, 20;
+}
+
+.rawText {
+  margin: 0;
+  @mixin responsive font-size, 14, 15, 16;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  white-space: pre-wrap;
+}
+
+@media (max-width: 767px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toolbarLeft {
+    justify-content: space-between;
+  }
+}

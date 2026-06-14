@@ -1,0 +1,31 @@
+{
+  "name": "termcat",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.29.1",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build:pages": "cross-env GITHUB_PAGES=true next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "next": "^16.2.6",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.22",
+    "babel-plugin-react-compiler": "1.0.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.1",
+    "postcss": "^8.5.6",
+    "postcss-mixins": "^12.1.2",
+    "typescript": "^5"
+  }
+}

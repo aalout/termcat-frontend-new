@@ -1,0 +1,109 @@
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  @mixin responsive width, 36, 36, 36;
+  @mixin responsive height, 36, 36, 36;
+  @mixin responsive border-radius, 18, 18, 18;
+  background: var(--gradient-avatar);
+  color: #fff;
+  @mixin responsive font-size, 14, 15, 16;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: none;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.avatar:hover {
+  box-shadow: var(--shadow-dropdown);
+  filter: brightness(1.03);
+}
+
+.menuWrap {
+  box-shadow: var(--shadow-dropdown);
+  border: none;
+  background: transparent;
+  padding: 0;
+  overflow: visible;
+}
+
+.menu {
+  position: relative;
+  @mixin responsive margin-top, 8, 8, 8;
+  @mixin responsive padding, 10, 12, 12;
+  @mixin responsive border-radius, 6, 6, 6;
+  background: var(--color-surface);
+  @mixin responsive min-width, 225, 225, 225;
+}
+
+.menu::before {
+  content: "";
+  position: absolute;
+  @mixin responsive top, -8, -8, -8;
+  @mixin responsive right, 14, 14, 14;
+  @mixin responsive width, 16, 16, 16;
+  @mixin responsive height, 8, 8, 8;
+  background: var(--color-surface);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.userInfo {
+  @mixin responsive padding-left, 4, 4, 4;
+  @mixin responsive padding-right, 4, 4, 4;
+  @mixin responsive padding-bottom, 6, 8, 8;
+}
+
+.name {
+  margin: 0;
+  @mixin responsive margin-bottom, 4, 4, 4;
+  @mixin responsive font-size, 14, 15, 16;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.015em;
+}
+
+.email {
+  margin: 0;
+  @mixin responsive font-size, 11, 12, 12;
+  color: var(--color-text-muted);
+}
+
+.divider {
+  @mixin responsive height, 1, 1, 1;
+  background: var(--color-border);
+  @mixin responsive margin-top, 4, 4, 4;
+  @mixin responsive margin-bottom, 6, 6, 6;
+}
+
+.menuItem,
+.menuItemDanger {
+  display: flex;
+  align-items: center;
+  @mixin responsive gap, 8, 8, 8;
+  width: 100%;
+  border: none;
+  background: var(--color-surface);
+  cursor: pointer;
+  @mixin responsive padding-top, 4, 4, 4;
+  @mixin responsive padding-bottom, 4, 4, 4;
+  @mixin responsive padding-left, 6, 8, 8;
+  @mixin responsive padding-right, 6, 8, 8;
+  @mixin responsive font-size, 14, 15, 16;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  @mixin responsive border-radius, 6, 6, 6;
+  color: var(--color-text-secondary);
+}
+
+.menuItem:hover {
+  background: var(--color-surface-muted);
+}
+
+.menuItemDanger {
+  color: var(--color-danger);
+}
+
+.menuItemDanger:hover {
+  background: rgba(255, 169, 169, 0.15);
+}

@@ -1,0 +1,32 @@
+.textarea {
+  box-sizing: border-box;
+  width: 100%;
+  @mixin responsive min-height, 180, 180, 180;
+  @mixin responsive padding, 12, 14, 16;
+  @mixin responsive border-radius, 10, 10, 12;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  @mixin responsive font-size, 14, 14, 15;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.textarea:focus {
+  border-color: var(--color-primary);
+  @mixin responsive-focus-ring 3, 3, 3, var(--color-primary-light);
+}
+
+.textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.error {
+  border-color: var(--color-danger);
+}

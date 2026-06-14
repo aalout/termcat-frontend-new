@@ -1,0 +1,143 @@
+.dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  min-height: 100dvh;
+  max-height: none;
+  overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dialog::backdrop {
+  background: var(--color-overlay);
+  animation: modalBackdropIn 0.25s ease-out;
+}
+
+@keyframes modalBackdropIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.shell {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+  width: 100%;
+  @mixin responsive padding, 12, 16, 20;
+}
+
+@keyframes modalContentIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(calc(8 / 480 * 100vw));
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (min-width: 1024px) {
+  @keyframes modalContentIn {
+    from {
+      opacity: 0;
+      transform: scale(0.96) translateY(calc(8 / 1024 * 100vw));
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  @keyframes modalContentIn {
+    from {
+      opacity: 0;
+      transform: scale(0.96) translateY(calc(8 / 1440 * 100vw));
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+}
+
+.content {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  @mixin responsive-max-width 480, 480, 480;
+  max-height: min(100dvh - calc(32 / 480 * 100vw), calc(640 / 480 * 100vw));
+  overflow-y: auto;
+  flex-shrink: 0;
+  @mixin responsive padding-top, 20, 24, 28;
+  @mixin responsive padding-bottom, 16, 20, 24;
+  @mixin responsive padding-left, 20, 24, 28;
+  @mixin responsive padding-right, 20, 24, 28;
+  @mixin responsive border-radius, 12, 14, 16;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  @mixin responsive-shadow-modal;
+  animation: modalContentIn 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@media (min-width: 1024px) {
+  .content {
+    max-height: min(100dvh - calc(32 / 1024 * 100vw), calc(640 / 1024 * 100vw));
+  }
+}
+
+@media (min-width: 1440px) {
+  .content {
+    max-height: min(100dvh - calc(32 / 1440 * 100vw), calc(640 / 1440 * 100vw));
+  }
+}
+
+.close {
+  position: absolute;
+  @mixin responsive top, 8, 10, 12;
+  @mixin responsive right, 8, 10, 12;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  @mixin responsive padding, 6, 8, 8;
+  border: none;
+  @mixin responsive border-radius, 8, 8, 10;
+  background-color: var(--color-bg);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.close:hover {
+  background-color: #eef2f3;
+}
+
+.close:focus-visible {
+  outline: none;
+  @mixin responsive-focus-ring 3, 3, 3, var(--color-primary-light);
+}
+
+.close:active {
+  transform: scale(0.94);
+}

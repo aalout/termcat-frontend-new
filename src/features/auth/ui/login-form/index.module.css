@@ -1,0 +1,61 @@
+.form {
+  box-sizing: border-box;
+  width: 100%;
+  @mixin responsive-max-width 400, 400, 400;
+  @mixin responsive padding, 24, 28, 32;
+  @mixin responsive border-radius, 12, 14, 16;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  @mixin responsive gap, 14, 14, 14;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @mixin responsive gap, 8, 8, 8;
+  @mixin responsive margin-bottom, 8, 8, 8;
+}
+
+.logoMark {
+  @mixin responsive width, 36, 40, 44;
+  @mixin responsive height, 36, 40, 44;
+  @mixin responsive border-radius, 10, 10, 10;
+  background: var(--gradient-avatar);
+}
+
+.title {
+  margin: 0;
+  @mixin responsive font-size, 22, 24, 26;
+  font-weight: 700;
+  background: var(--gradient-logo-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  margin: 0;
+  @mixin responsive font-size, 13, 14, 14;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.error {
+  margin: 0;
+  @mixin responsive font-size, 13, 13, 14;
+  color: var(--color-danger);
+}
+
+.submit {
+  width: 100%;
+}
+
+.hint {
+  margin: 0;
+  text-align: center;
+  @mixin responsive font-size, 12, 12, 13;
+  color: var(--color-text-disabled);
+}

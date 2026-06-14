@@ -1,0 +1,99 @@
+.root {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  @mixin responsive gap, 4, 6, 6;
+  vertical-align: top;
+}
+
+.rootFullWidth {
+  display: flex;
+  width: 100%;
+}
+
+.inputWithAddons {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.leadingSlot {
+  position: absolute;
+  @mixin responsive left, 10, 12, 12;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  @mixin responsive gap, 6, 6, 6;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.trailingSlot {
+  position: absolute;
+  @mixin responsive right, 8, 10, 10;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  @mixin responsive gap, 6, 6, 6;
+  color: var(--color-text-muted);
+  z-index: 1;
+}
+
+.root:has(.leadingSlot) input {
+  @mixin responsive padding-left, 36, 40, 40;
+}
+
+.root:has(.trailingSlot[data-trailing-slot]) input {
+  @mixin responsive padding-right, 36, 40, 40;
+}
+
+.root input {
+  box-sizing: border-box;
+  width: 100%;
+  @mixin responsive padding-top, 8, 10, 10;
+  @mixin responsive padding-bottom, 8, 10, 10;
+  @mixin responsive padding-left, 12, 14, 14;
+  @mixin responsive padding-right, 12, 14, 14;
+  border: 1px solid var(--color-border);
+  @mixin responsive border-radius, 8, 8, 10;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  @mixin responsive font-size, 14, 14, 15;
+  line-height: 1.4;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.root input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.root input:hover:not(:disabled) {
+  border-color: #d5dde1;
+}
+
+.root input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  @mixin responsive-focus-ring 3, 3, 3, var(--color-primary-light);
+}
+
+.root input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-bg);
+}
+
+.inputError {
+  border-color: var(--color-danger) !important;
+}
+
+.errorMessage {
+  @mixin responsive font-size, 12, 13, 13;
+  line-height: 1.35;
+  color: var(--color-danger);
+}

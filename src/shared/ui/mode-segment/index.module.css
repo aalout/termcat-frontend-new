@@ -1,0 +1,45 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  @mixin responsive gap, 8, 10, 10;
+  @mixin responsive padding, 3, 4, 4;
+  @mixin responsive padding-left, 6, 8, 8;
+  @mixin responsive padding-right, 6, 8, 8;
+  @mixin responsive border-radius, 8, 8, 8;
+  background: var(--color-border);
+}
+
+.itemActive,
+.itemDisabled {
+  display: inline-flex;
+  align-items: center;
+  @mixin responsive gap, 8, 8, 8;
+  @mixin responsive padding-top, 2, 2, 2;
+  @mixin responsive padding-bottom, 2, 2, 2;
+  @mixin responsive padding-left, 6, 8, 8;
+  @mixin responsive padding-right, 6, 8, 8;
+  @mixin responsive border-radius, 6, 6, 6;
+  @mixin responsive font-size, 14, 15, 16;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.itemActive {
+  background: var(--color-surface-muted);
+  color: var(--color-text-secondary);
+}
+
+.itemDisabled {
+  color: var(--color-text-muted);
+}
+
+.fileGroup {
+  display: inline-flex;
+  align-items: center;
+}
+
+.soon {
+  @mixin responsive font-size, 11, 12, 12;
+  color: var(--color-text-disabled);
+  @mixin responsive margin-left, 2, 4, 4;
+}

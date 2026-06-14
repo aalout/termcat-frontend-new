@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  @mixin responsive padding-top, 8, 10, 10;
+  @mixin responsive padding-bottom, 8, 10, 10;
+  @mixin responsive padding-left, 16, 28, 40;
+  @mixin responsive padding-right, 16, 28, 40;
+  background: var(--color-surface);
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  @mixin responsive gap, 24, 80, 177;
+  min-width: 0;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  @mixin responsive gap, 12, 16, 20;
+  flex-wrap: wrap;
+}
+
+.historyBtn {
+  flex-shrink: 0;
+}
+
+.avatar {
+  flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+  .left {
+    flex-direction: column;
+    align-items: flex-start;
+    @mixin responsive gap, 12, 12, 12;
+  }
+}

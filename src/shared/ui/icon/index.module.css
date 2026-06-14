@@ -1,0 +1,27 @@
+.icon {
+  display: block;
+  flex-shrink: 0;
+  max-width: none;
+  height: auto;
+  shape-rendering: geometricPrecision;
+}
+
+.s16 {
+  @mixin responsive width, 16, 16, 16;
+  @mixin responsive height, 16, 16, 16;
+}
+
+.s18 {
+  @mixin responsive width, 18, 18, 18;
+  @mixin responsive height, 18, 18, 18;
+}
+
+.s20 {
+  @mixin responsive width, 20, 20, 20;
+  @mixin responsive height, 20, 20, 20;
+}
+
+.s24 {
+  @mixin responsive width, 24, 24, 24;
+  @mixin responsive height, 24, 24, 24;
+}

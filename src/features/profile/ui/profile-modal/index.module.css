@@ -1,0 +1,136 @@
+.dialog :global(.content) {
+  width: 100%;
+  @mixin responsive-max-width 520, 520, 520;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  @mixin responsive gap, 24, 24, 24;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @mixin responsive gap, 16, 16, 16;
+}
+
+.title {
+  margin: 0;
+  @mixin responsive font-size, 16, 17, 18;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+}
+
+.closeBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  @mixin responsive padding, 8, 10, 10;
+  border: 1px solid var(--color-border);
+  @mixin responsive border-radius, 8, 8, 8;
+  background: var(--color-surface-muted);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  @mixin responsive gap, 12, 12, 12;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  @mixin responsive gap, 4, 4, 4;
+}
+
+.label {
+  @mixin responsive font-size, 13, 14, 14;
+  color: var(--color-text-muted);
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  @mixin responsive padding-top, 5, 6, 6;
+  @mixin responsive padding-bottom, 5, 6, 6;
+  @mixin responsive padding-left, 20, 24, 28;
+  @mixin responsive padding-right, 20, 24, 28;
+  border: 1px solid var(--color-border);
+  @mixin responsive border-radius, 8, 8, 8;
+  background: var(--color-surface-muted);
+  color: var(--color-text-secondary);
+  @mixin responsive font-size, 14, 15, 16;
+  letter-spacing: -0.015em;
+}
+
+.input:disabled {
+  color: var(--color-text-disabled);
+}
+
+.divider {
+  @mixin responsive height, 1, 1, 1;
+  background: var(--color-border);
+  @mixin responsive margin-top, 4, 4, 4;
+  @mixin responsive margin-bottom, 4, 4, 4;
+}
+
+.error {
+  margin: 0;
+  color: var(--color-danger);
+  @mixin responsive font-size, 13, 14, 14;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  @mixin responsive gap, 12, 12, 12;
+}
+
+.actionBtn,
+.actionBtnDanger,
+.saveBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @mixin responsive gap, 8, 8, 8;
+  width: 100%;
+  @mixin responsive padding-top, 5, 6, 6;
+  @mixin responsive padding-bottom, 5, 6, 6;
+  @mixin responsive padding-left, 20, 24, 28;
+  @mixin responsive padding-right, 20, 24, 28;
+  @mixin responsive border-radius, 8, 8, 8;
+  @mixin responsive font-size, 14, 15, 16;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+.actionBtn,
+.actionBtnDanger {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.actionBtn {
+  color: var(--color-text-secondary);
+}
+
+.actionBtnDanger {
+  color: var(--color-danger);
+}
+
+.saveBtn {
+  border: none;
+  background: var(--gradient-primary-solid);
+  color: var(--color-surface);
+}
+
+.saveBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

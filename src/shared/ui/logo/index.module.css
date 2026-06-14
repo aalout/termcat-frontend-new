@@ -1,0 +1,32 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  @mixin responsive gap, 8, 8, 8;
+  text-decoration: none;
+}
+
+.iconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  @mixin responsive width, 28, 32, 32;
+  @mixin responsive height, 28, 32, 32;
+  @mixin responsive border-radius, 5, 5, 5;
+  background: var(--color-surface-logo);
+}
+
+.icon {
+  display: block;
+  @mixin responsive width, 20, 20, 21;
+  @mixin responsive height, 20, 21, 21;
+}
+
+.text {
+  background: var(--gradient-logo-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  @mixin responsive font-size, 14, 16, 16;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}

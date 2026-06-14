@@ -1,0 +1,75 @@
+:root {
+  --color-app-bg: #eaf0f8;
+  --color-surface: #fdfdfe;
+  --color-surface-muted: #f6f7f8;
+  --color-surface-logo: #f7f8fb;
+
+  --color-primary: #72aad9;
+  --color-primary-dark: #0063b1;
+  --color-primary-light: #52d9e1;
+  --color-primary-tint-12: rgba(114, 170, 217, 0.12);
+  --color-primary-tint-25: rgba(114, 170, 217, 0.25);
+  --color-primary-contrast: #0f6cb6;
+
+  --color-border: #e8e8e8;
+  --color-border-muted: #bdbdbd;
+
+  --color-text: #212121;
+  --color-text-secondary: #4d4d4d;
+  --color-text-muted: #757575;
+  --color-text-disabled: #bdbdbd;
+  --color-text-inverse: #e8e8e8;
+
+  --color-danger: #e44444;
+  --color-danger-light: #ffa9a9;
+
+  --color-overlay: rgba(26, 31, 35, 0.45);
+
+  --gradient-primary: linear-gradient(
+    196deg,
+    rgba(82, 217, 225, 0.8) 4.32%,
+    rgba(0, 99, 177, 0.8) 91.02%
+  );
+  --gradient-primary-solid: linear-gradient(196deg, #52d9e1 4.32%, #0063b1 91.02%);
+  --gradient-avatar: linear-gradient(238deg, #52d9e1 4.32%, #72aad9 91.02%);
+  --gradient-logo-text: linear-gradient(206deg, #52d9e1 19.27%, #45bbca 123.02%);
+  --gradient-term-tag: linear-gradient(210deg, #52d9e1 4.32%, #72aad9 91.02%);
+  --gradient-insert-hover: linear-gradient(196deg, #52d9e1 4.32%, #72aad9 91.02%);
+
+  --shadow-dropdown:
+    0 calc(6 / 480 * 100vw) calc(8 / 480 * 100vw) rgba(114, 170, 217, 0.16),
+    0 calc(3 / 480 * 100vw) calc(3 / 480 * 100vw) rgba(114, 170, 217, 0.24),
+    0 calc(9 / 480 * 100vw) calc(14 / 480 * 100vw) rgba(114, 170, 217, 0.1);
+  --shadow-card-hover:
+    0 calc(6 / 480 * 100vw) calc(8 / 480 * 100vw) rgba(114, 170, 217, 0.16),
+    0 calc(3 / 480 * 100vw) calc(3 / 480 * 100vw) rgba(114, 170, 217, 0.24),
+    0 calc(9 / 480 * 100vw) calc(14 / 480 * 100vw) rgba(114, 170, 217, 0.1);
+
+  --font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --shadow-dropdown:
+      0 calc(6 / 1024 * 100vw) calc(8 / 1024 * 100vw) rgba(114, 170, 217, 0.16),
+      0 calc(3 / 1024 * 100vw) calc(3 / 1024 * 100vw) rgba(114, 170, 217, 0.24),
+      0 calc(9 / 1024 * 100vw) calc(14 / 1024 * 100vw) rgba(114, 170, 217, 0.1);
+    --shadow-card-hover:
+      0 calc(6 / 1024 * 100vw) calc(8 / 1024 * 100vw) rgba(114, 170, 217, 0.16),
+      0 calc(3 / 1024 * 100vw) calc(3 / 1024 * 100vw) rgba(114, 170, 217, 0.24),
+      0 calc(9 / 1024 * 100vw) calc(14 / 1024 * 100vw) rgba(114, 170, 217, 0.1);
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --shadow-dropdown:
+      0 calc(6 / 1440 * 100vw) calc(8 / 1440 * 100vw) rgba(114, 170, 217, 0.16),
+      0 calc(3 / 1440 * 100vw) calc(3 / 1440 * 100vw) rgba(114, 170, 217, 0.24),
+      0 calc(9 / 1440 * 100vw) calc(14 / 1440 * 100vw) rgba(114, 170, 217, 0.1);
+    --shadow-card-hover:
+      0 calc(6 / 1440 * 100vw) calc(8 / 1440 * 100vw) rgba(114, 170, 217, 0.16),
+      0 calc(3 / 1440 * 100vw) calc(3 / 1440 * 100vw) rgba(114, 170, 217, 0.24),
+      0 calc(9 / 1440 * 100vw) calc(14 / 1440 * 100vw) rgba(114, 170, 217, 0.1);
+  }
+}
