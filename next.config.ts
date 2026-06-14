@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const isGitHubPages = process.env.GITHUB_PAGES === "true";
-const basePath = isGitHubPages ? "/termcat-demo" : "";
+const basePath = isGitHubPages ? "/termcat-frontend-new" : "";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
