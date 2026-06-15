@@ -122,7 +122,7 @@ export function TextPanel({
 
             <span className={[styles.langLabel, showSource ? styles.langActive : ""].join(" ")}>
 
-              RU
+              EN
 
             </span>
 
@@ -130,7 +130,7 @@ export function TextPanel({
 
             <span className={[styles.langLabel, !showSource && hasAnalysis ? styles.langActive : ""].join(" ")}>
 
-              EN
+              RU
 
             </span>
 

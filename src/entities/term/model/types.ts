@@ -1,13 +1,13 @@
 export interface Term {
   id: string;
-  /** Исходная фраза в RU-тексте */
+  /** Канонический RU-термин — заголовок карточки */
   source: string;
-  /** Варианты EN-термина в переводе */
+  /** Спорные RU-варианты перевода */
   translations: string[];
-  /** Активный EN-вариант в тексте перевода */
+  /** Активный вариант в тексте перевода */
   selectedTranslation: string;
   description?: string;
-  /** Позиция в EN-переводе */
+  /** Позиция в RU-переводе */
   start: number;
   end: number;
 }

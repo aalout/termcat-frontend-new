@@ -61,11 +61,37 @@ export function HomePage({ user }: HomePageProps) {
   };
 
   const handleTranslationSelect = (termId: string, translation: string) => {
-    setTerms((prev) =>
-      prev.map((term) =>
-        term.id === termId ? { ...term, selectedTranslation: translation } : term
-      )
-    );
+    setTerms((prevTerms) => {
+      const term = prevTerms.find((item) => item.id === termId);
+      if (!term) return prevTerms;
+
+      const delta = translation.length - (term.end - term.start);
+
+      setTranslatedText(
+        (prevText) =>
+          prevText.slice(0, term.start) + translation + prevText.slice(term.end)
+      );
+
+      return prevTerms.map((item) => {
+        if (item.id === termId) {
+          return {
+            ...item,
+            selectedTranslation: translation,
+            end: item.start + translation.length,
+          };
+        }
+
+        if (item.start >= term.end) {
+          return {
+            ...item,
+            start: item.start + delta,
+            end: item.end + delta,
+          };
+        }
+
+        return item;
+      });
+    });
     setActiveTermId(termId);
   };
 

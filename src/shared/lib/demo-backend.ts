@@ -166,8 +166,8 @@ export const demoBackend = {
 
     const session = analyzeText(
       payload.text.trim(),
-      payload.sourceLang ?? "ru",
-      payload.targetLang ?? "en"
+      payload.sourceLang ?? "en",
+      payload.targetLang ?? "ru"
     );
 
     const history = readHistory(user.id);

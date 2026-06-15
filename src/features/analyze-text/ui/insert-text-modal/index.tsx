@@ -40,7 +40,7 @@ export function InsertTextModal({
         <Textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Вставьте текст на русском (RU) для перевода…"
+          placeholder="Вставьте текст на английском (EN) для перевода…"
           fullWidth
           className={styles.modalTextarea}
         />

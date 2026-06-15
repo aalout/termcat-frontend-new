@@ -1,5 +1,5 @@
-/** Исходный текст (RU) — вставляет пользователь */
-export const DEMO_SOURCE_TEXT = `Современные системы машинного обучения активно используют глубокого обучения и нейронных сетей для обработки естественного языка. Архитектура трансформера лежит в основе большинства современных NLP-решений. Для оценки качества перевода часто применяют BLEU оценка, а для языковых моделей — перплексия.`;
+/** Исходный текст (EN) — вставляет пользователь */
+export const DEMO_SOURCE_TEXT = `Large language models rely on machine learning and deep learning pipelines. Teams fine-tune them on in-domain corpora and monitor quality with BLEU score and perplexity. Transformer-based neural networks remain central to natural language processing, encoding tokens as dense embeddings. Retrieval-augmented generation helps reduce hallucination, but Russian terminology is still contested: some editors prefer «нейросети» over «нейронные сети», and many leave LLM untranslated.`;
 
-/** Перевод (EN) — отображается после анализа */
-export const DEMO_TRANSLATED_TEXT = `Modern machine learning systems actively use deep learning and neural networks for natural language processing. The transformer architecture underlies most modern NLP solutions. BLEU score is often used to evaluate translation quality, and perplexity for language models.`;
+/** Перевод (RU) — отображается после анализа */
+export const DEMO_TRANSLATED_TEXT = `Большие языковые модели опираются на машинное обучение и конвейеры глубокого обучения. Команды дообучают их на доменных корпусах и следят за качеством с помощью метрики BLEU и перплексии. Нейросети на базе трансформера остаются центральными для обработки естественного языка, кодируя токены в виде плотных эмбеддингов. Retrieval-augmented generation помогает снижать галлюцинации, но русская терминология до сих пор спорная: часть редакторов предпочитает «нейросети» вместо «нейронных сетей», а LLM многие оставляют без перевода.`;
