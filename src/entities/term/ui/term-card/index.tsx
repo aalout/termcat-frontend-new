@@ -21,7 +21,10 @@ export function TermCard({ term, active, onClick, onTranslationSelect }: TermCar
       }}
     >
       <div className={styles.top}>
-        <h3 className={styles.title}>{term.source}</h3>
+        <div className={styles.titleBlock}>
+          <h3 className={styles.title}>{term.source}</h3>
+          <p className={styles.phrase}>{term.phrase}</p>
+        </div>
         <span className={styles.termTag}>термин</span>
       </div>
 

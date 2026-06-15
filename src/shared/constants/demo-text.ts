@@ -1,5 +1,2 @@
-/** Исходный текст (EN) — вставляет пользователь */
+/** Демо-текст (EN) — вставляет пользователь */
 export const DEMO_SOURCE_TEXT = `Large language models rely on machine learning and deep learning pipelines. Teams fine-tune them on in-domain corpora and monitor quality with BLEU score and perplexity. Transformer-based neural networks remain central to natural language processing, encoding tokens as dense embeddings. Retrieval-augmented generation helps reduce hallucination, but Russian terminology is still contested: some editors prefer «нейросети» over «нейронные сети», and many leave LLM untranslated.`;
-
-/** Перевод (RU) — отображается после анализа */
-export const DEMO_TRANSLATED_TEXT = `Большие языковые модели опираются на машинное обучение и конвейеры глубокого обучения. Команды дообучают их на доменных корпусах и следят за качеством с помощью метрики BLEU и перплексии. Нейросети на базе трансформера остаются центральными для обработки естественного языка, кодируя токены в виде плотных эмбеддингов. Retrieval-augmented generation помогает снижать галлюцинации, но русская терминология до сих пор спорная: часть редакторов предпочитает «нейросети» вместо «нейронных сетей», а LLM многие оставляют без перевода.`;

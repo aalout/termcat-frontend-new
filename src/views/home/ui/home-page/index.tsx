@@ -5,6 +5,7 @@ import type { User } from "@/entities/user/model/types";
 import type { Term } from "@/entities/term/model/types";
 import type { HistoryItem } from "@/shared/api/analysis/client";
 import { analysisApi } from "@/shared/api/analysis/client";
+import { buildMixedText } from "@/shared/lib/analysis-core";
 import { Header } from "@/widgets/header";
 import { TextPanel } from "@/widgets/text-panel";
 import { TermsSidebar } from "@/widgets/terms-sidebar";
@@ -19,10 +20,9 @@ interface HomePageProps {
 export function HomePage({ user }: HomePageProps) {
   const [currentUser, setCurrentUser] = useState(user);
   const [sourceText, setSourceText] = useState("");
-  const [translatedText, setTranslatedText] = useState("");
+  const [outputText, setOutputText] = useState("");
   const [terms, setTerms] = useState<Term[]>([]);
   const [activeTermId, setActiveTermId] = useState<string | null>(null);
-  const [showSource, setShowSource] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
   const [insertOpen, setInsertOpen] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -44,15 +44,14 @@ export function HomePage({ user }: HomePageProps) {
     void loadHistory();
   }, [loadHistory]);
 
-  const analyze = async (text: string) => {
+  const analyze = async (source: string) => {
     setAnalyzing(true);
     try {
-      const result = await analysisApi.analyze({ text });
+      const result = await analysisApi.analyze({ text: source });
       setSourceText(result.sourceText);
-      setTranslatedText(result.translatedText);
+      setOutputText(result.translatedText);
       setTerms(result.terms);
       setActiveTermId(null);
-      setShowSource(false);
       setInsertOpen(false);
       await loadHistory();
     } finally {
@@ -62,35 +61,12 @@ export function HomePage({ user }: HomePageProps) {
 
   const handleTranslationSelect = (termId: string, translation: string) => {
     setTerms((prevTerms) => {
-      const term = prevTerms.find((item) => item.id === termId);
-      if (!term) return prevTerms;
-
-      const delta = translation.length - (term.end - term.start);
-
-      setTranslatedText(
-        (prevText) =>
-          prevText.slice(0, term.start) + translation + prevText.slice(term.end)
+      const nextTerms = prevTerms.map((term) =>
+        term.id === termId ? { ...term, selectedTranslation: translation } : term
       );
-
-      return prevTerms.map((item) => {
-        if (item.id === termId) {
-          return {
-            ...item,
-            selectedTranslation: translation,
-            end: item.start + translation.length,
-          };
-        }
-
-        if (item.start >= term.end) {
-          return {
-            ...item,
-            start: item.start + delta,
-            end: item.end + delta,
-          };
-        }
-
-        return item;
-      });
+      const { text, terms: rebuilt } = buildMixedText(sourceText, nextTerms);
+      setOutputText(text);
+      return rebuilt;
     });
     setActiveTermId(termId);
   };
@@ -105,16 +81,13 @@ export function HomePage({ user }: HomePageProps) {
 
       <main className={styles.main}>
         <TextPanel
-          sourceText={sourceText}
-          translatedText={translatedText}
+          text={hasAnalysis ? outputText : sourceText}
           terms={terms}
           activeTermId={activeTermId}
-          showSource={showSource}
           hasAnalysis={hasAnalysis}
           onInsertClick={() => setInsertOpen(true)}
           onAnalyzeClick={() => analyze(sourceText)}
           onTermClick={setActiveTermId}
-          onLangSwitchClick={() => setShowSource((prev) => !prev)}
           analyzing={analyzing}
         />
         <TermsSidebar

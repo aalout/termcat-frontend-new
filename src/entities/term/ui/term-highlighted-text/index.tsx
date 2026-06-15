@@ -33,7 +33,7 @@ export function TermHighlightedText({
     }
     segments.push({
       type: "term",
-      value: term.selectedTranslation,
+      value: text.slice(term.start, term.end),
       term,
     });
     cursor = term.end;

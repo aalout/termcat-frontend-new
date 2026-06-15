@@ -1,21 +1,16 @@
 import type { Term } from "@/entities/term/model/types";
 import type { AnalysisSession } from "@/entities/analysis/model/types";
-import {
-  DEMO_SOURCE_TEXT,
-  DEMO_TRANSLATED_TEXT,
-} from "@/shared/constants/demo-text";
+import { DEMO_SOURCE_TEXT } from "@/shared/constants/demo-text";
 
 interface TermPattern {
-  /** Фраза в EN-исходнике (для частичного mock-перевода) */
+  /** Каноническая EN-фраза */
   enPhrase: string;
-  /** Канонический RU-термин — заголовок карточки */
+  /** Дополнительные EN-формы для поиска в тексте */
+  enMatchPhrases?: string[];
+  /** Канонический RU-перевод — заголовок карточки */
   ruLabel: string;
-  /** Спорные RU-варианты перевода */
+  /** Спорные RU-варианты */
   ruVariants: string[];
-  /** Формы, которые ищем в RU-переводе (падежи, написания) */
-  matchPhrases: string[];
-  /** Подстановка при частичном mock-переводе */
-  mockReplacement: string;
   description?: string;
 }
 
@@ -24,103 +19,80 @@ const TERM_PATTERNS: TermPattern[] = [
     enPhrase: "large language models",
     ruLabel: "большая языковая модель",
     ruVariants: ["большая языковая модель", "БЯМ", "LLM"],
-    matchPhrases: ["Большие языковые модели", "большие языковые модели"],
-    mockReplacement: "Большие языковые модели",
     description:
-      "EN: large language models. Спор: полный перевод «большая языковая модель», аббревиатура БЯМ или латинская LLM.",
+      "Спор: полный перевод «большая языковая модель», аббревиатура БЯМ или латинская LLM.",
   },
   {
     enPhrase: "machine learning",
     ruLabel: "машинное обучение",
     ruVariants: ["машинное обучение", "автоматическое обучение", "МО"],
-    matchPhrases: ["машинное обучение", "машинного обучения"],
-    mockReplacement: "машинное обучение",
     description:
-      "EN: machine learning. Устаревший вариант «автоматическое обучение» до сих пор встречается в нормативных текстах.",
+      "Устаревший вариант «автоматическое обучение» до сих пор встречается в нормативных текстах.",
   },
   {
     enPhrase: "deep learning",
     ruLabel: "глубокое обучение",
     ruVariants: ["глубокое обучение", "глубинное обучение", "ГО"],
-    matchPhrases: ["глубокого обучения", "глубокое обучение"],
-    mockReplacement: "глубокого обучения",
     description:
-      "EN: deep learning. «Глубинное обучение» — частая калька; в ГОST-подобных глоссариях закреплено «глубокое обучение».",
+      "«Глубинное обучение» — частая калька; в глоссариях чаще «глубокое обучение».",
   },
   {
     enPhrase: "fine-tune",
+    enMatchPhrases: ["fine-tune", "fine-tuning", "fine-tuned"],
     ruLabel: "дообучение",
     ruVariants: ["дообучение", "тонкая настройка", "fine-tuning"],
-    matchPhrases: ["дообучают", "дообучение"],
-    mockReplacement: "дообучают",
     description:
-      "EN: fine-tune / fine-tuning. Спор между русским «дообучение» и заимствованием fine-tuning в технической документации.",
+      "Спор между русским «дообучение» и заимствованием fine-tuning в технической документации.",
   },
   {
     enPhrase: "BLEU score",
     ruLabel: "метрика BLEU",
     ruVariants: ["метрика BLEU", "оценка BLEU", "BLEU"],
-    matchPhrases: ["метрики BLEU", "метрика BLEU", "оценка BLEU"],
-    mockReplacement: "метрики BLEU",
-    description:
-      "EN: BLEU score. Метрика обычно не переводится; спорят, нужен ли род «метрика» или «оценка».",
+    description: "Метрика обычно не переводится; спорят, нужен ли род «метрика» или «оценка».",
   },
   {
     enPhrase: "perplexity",
     ruLabel: "перплексия",
     ruVariants: ["перплексия", "конфузия", "perplexity"],
-    matchPhrases: ["перплексии", "перплексия"],
-    mockReplacement: "перплексии",
     description:
-      "EN: perplexity. «Конфузия» — старый калька-вариант; в современных NLP-текстах чаще «перплексия».",
+      "«Конфузия» — старый калька-вариант; в современных NLP-текстах чаще «перплексия».",
   },
   {
     enPhrase: "neural networks",
+    enMatchPhrases: ["neural networks", "neural network"],
     ruLabel: "нейросети",
     ruVariants: ["нейросети", "нейронные сети", "НС"],
-    matchPhrases: ["Нейросети", "нейросетей", "нейронных сетей"],
-    mockReplacement: "Нейросети",
     description:
-      "EN: neural networks. Классический спор: разговорное «нейросети» vs нормативное «нейронные сети».",
+      "Классический спор: разговорное «нейросети» vs нормативное «нейронные сети».",
   },
   {
     enPhrase: "transformer",
+    enMatchPhrases: ["transformer", "Transformer", "Transformer-based"],
     ruLabel: "трансформер",
     ruVariants: ["трансформер", "Transformer", "трансформерная архитектура"],
-    matchPhrases: ["трансформера", "трансформер", "Transformer"],
-    mockReplacement: "трансформера",
     description:
-      "EN: transformer. Часто оставляют латиницей Transformer; в русскоязычных статьях закрепляется «трансформер».",
+      "Часто оставляют латиницей Transformer; в русскоязычных статьях закрепляется «трансформер».",
   },
   {
     enPhrase: "natural language processing",
     ruLabel: "обработка естественного языка",
     ruVariants: ["обработка естественного языка", "ОЕЯ", "NLP"],
-    matchPhrases: [
-      "обработки естественного языка",
-      "обработка естественного языка",
-    ],
-    mockReplacement: "обработки естественного языка",
-    description:
-      "EN: natural language processing. Аббревиатуры ОЕЯ и NLP конкурируют с полной русской формой.",
+    description: "Аббревиатуры ОЕЯ и NLP конкурируют с полной русской формой.",
   },
   {
     enPhrase: "embeddings",
+    enMatchPhrases: ["embeddings", "embedding"],
     ruLabel: "эмбеддинг",
     ruVariants: ["эмбеддинг", "векторное представление", "вложение"],
-    matchPhrases: ["эмбеддингов", "эмбеддинги", "эмбеддинг"],
-    mockReplacement: "эмбеддингов",
     description:
-      "EN: embeddings. «Вложение» из математики vs устоявшийся IT-калька «эмбеддинг» vs описательное «векторное представление».",
+      "«Вложение» из математики vs IT-калька «эмбеддинг» vs «векторное представление».",
   },
   {
     enPhrase: "tokens",
+    enMatchPhrases: ["tokens", "token"],
     ruLabel: "токен",
     ruVariants: ["токен", "лексема", "единица текста"],
-    matchPhrases: ["токены", "токенов", "токен"],
-    mockReplacement: "токены",
-    description:
-      "EN: tokens. В лингводокументации предпочитают «лексема», в ML-доках — «токен».",
+    description: "В лингводокументации предпочитают «лексема», в ML-доках — «токен».",
   },
   {
     enPhrase: "Retrieval-augmented generation",
@@ -130,28 +102,22 @@ const TERM_PATTERNS: TermPattern[] = [
       "RAG",
       "retrieval-augmented generation",
     ],
-    matchPhrases: ["Retrieval-augmented generation"],
-    mockReplacement: "Retrieval-augmented generation",
     description:
-      "EN: retrieval-augmented generation. Аббревиатура RAG vs полный перевод vs полное сохранение EN-формулировки.",
+      "Аббревиатура RAG vs полный перевод vs полное сохранение EN-формулировки.",
   },
   {
     enPhrase: "hallucination",
     ruLabel: "галлюцинация",
     ruVariants: ["галлюцинация", "выдумка модели", "hallucination"],
-    matchPhrases: ["галлюцинации", "галлюцинация"],
-    mockReplacement: "галлюцинации",
     description:
-      "EN: hallucination. Калька «галлюцинация» закрепилась в ML; альтернатива — описательное «выдумка модели».",
+      "Калька «галлюцинация» закрепилась в ML; альтернатива — «выдумка модели».",
   },
   {
     enPhrase: "LLM",
     ruLabel: "большая языковая модель",
     ruVariants: ["большая языковая модель", "БЯМ", "LLM"],
-    matchPhrases: ["LLM"],
-    mockReplacement: "LLM",
     description:
-      "EN: LLM. В русскоязычных текстах часто оставляют латиницей вместо БЯМ или полного перевода.",
+      "В русскоязычных текстах часто оставляют латиницей вместо БЯМ или полного перевода.",
   },
 ];
 
@@ -176,43 +142,33 @@ function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function findMatch(translatedText: string, phrases: string[]) {
-  const lowerText = translatedText.toLowerCase();
+function getMatchPhrases(pattern: TermPattern) {
+  return pattern.enMatchPhrases ?? [pattern.enPhrase];
+}
 
-  for (const phrase of phrases) {
+function findMatch(text: string, phrases: string[]) {
+  const lowerText = text.toLowerCase();
+
+  for (const phrase of [...phrases].sort((a, b) => b.length - a.length)) {
     const idx = lowerText.indexOf(phrase.toLowerCase());
     if (idx === -1) continue;
 
     return {
       start: idx,
       end: idx + phrase.length,
-      matched: translatedText.slice(idx, idx + phrase.length),
+      matched: text.slice(idx, idx + phrase.length),
     };
   }
 
   return null;
 }
 
-function mockTranslate(sourceText: string): string {
-  if (normalize(sourceText) === normalize(DEMO_SOURCE_TEXT)) {
-    return DEMO_TRANSLATED_TEXT;
-  }
-
-  let translated = sourceText;
-  for (const pattern of SORTED_PATTERNS) {
-    const re = new RegExp(escapeRegExp(pattern.enPhrase), "gi");
-    translated = translated.replace(re, pattern.mockReplacement);
-  }
-
-  return translated;
-}
-
-export function extractTerms(translatedText: string): Term[] {
+export function extractTerms(text: string): Term[] {
   const found: Term[] = [];
   const occupied: Array<{ start: number; end: number }> = [];
 
-  for (const pattern of TERM_PATTERNS) {
-    const match = findMatch(translatedText, pattern.matchPhrases);
+  for (const pattern of SORTED_PATTERNS) {
+    const match = findMatch(text, getMatchPhrases(pattern));
     if (!match) continue;
 
     const overlaps = occupied.some(
@@ -224,22 +180,40 @@ export function extractTerms(translatedText: string): Term[] {
 
     found.push({
       id: crypto.randomUUID(),
+      phrase: match.matched,
       source: pattern.ruLabel,
-      translations: Array.from(
-        new Set(
-          pattern.ruVariants.includes(match.matched)
-            ? pattern.ruVariants
-            : [match.matched, ...pattern.ruVariants]
-        )
-      ),
-      selectedTranslation: match.matched,
+      translations: pattern.ruVariants,
+      selectedTranslation: pattern.ruVariants[0],
       description: pattern.description,
+      sourceStart: match.start,
+      sourceEnd: match.end,
       start: match.start,
       end: match.end,
     });
   }
 
-  return found.sort((a, b) => a.start - b.start);
+  return found.sort((a, b) => a.sourceStart - b.sourceStart);
+}
+
+/** Собирает EN+RU «мешанину»: исходный текст с подставленными RU-терминами */
+export function buildMixedText(sourceText: string, terms: Term[]) {
+  const sorted = [...terms].sort((a, b) => a.sourceStart - b.sourceStart);
+  let result = "";
+  let cursor = 0;
+  const rebuilt: Term[] = [];
+
+  for (const term of sorted) {
+    result += sourceText.slice(cursor, term.sourceStart);
+    const start = result.length;
+    result += term.selectedTranslation;
+    const end = result.length;
+    rebuilt.push({ ...term, start, end });
+    cursor = term.sourceEnd;
+  }
+
+  result += sourceText.slice(cursor);
+
+  return { text: result, terms: rebuilt };
 }
 
 export function analyzeText(
@@ -247,18 +221,23 @@ export function analyzeText(
   sourceLang = "en",
   targetLang = "ru"
 ): AnalysisSession {
-  const translatedText = mockTranslate(sourceText);
-  const terms = extractTerms(translatedText);
+  const text = sourceText.trim();
+  const rawTerms = extractTerms(text);
+  const { text: mixedText, terms } = buildMixedText(text, rawTerms);
 
   return {
     id: crypto.randomUUID(),
-    title: buildTitle(sourceText) || "Новый анализ",
-    sourceText,
-    translatedText,
+    title: buildTitle(text) || "Новый анализ",
+    sourceText: text,
+    translatedText: mixedText,
     sourceLang,
     targetLang,
     terms,
-    wordCount: countWords(translatedText),
+    wordCount: countWords(mixedText),
     createdAt: new Date().toISOString(),
   };
+}
+
+export function isDemoText(text: string) {
+  return normalize(text) === normalize(DEMO_SOURCE_TEXT);
 }

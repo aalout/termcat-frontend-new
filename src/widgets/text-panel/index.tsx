@@ -1,228 +1,92 @@
 "use client";
 
-
-
 import type { Term } from "@/entities/term/model/types";
-
 import { TermHighlightedText } from "@/entities/term/ui/term-highlighted-text";
-
 import { TextEmptyWelcome } from "@/features/analyze-text/ui/text-empty-welcome";
-
 import { Icon } from "@/shared/ui/icon";
-
 import { Button } from "@/shared/ui/button";
-
 import styles from "./index.module.css";
 
-
-
 interface TextPanelProps {
-
-  sourceText: string;
-
-  translatedText: string;
-
+  text: string;
   terms: Term[];
-
   activeTermId: string | null;
-
-  showSource: boolean;
-
   hasAnalysis: boolean;
-
   onInsertClick: () => void;
-
   onAnalyzeClick: () => void;
-
   onTermClick: (termId: string) => void;
-
-  onLangSwitchClick: () => void;
-
   analyzing?: boolean;
-
 }
-
-
 
 export function TextPanel({
-
-  sourceText,
-
-  translatedText,
-
+  text,
   terms,
-
   activeTermId,
-
-  showSource,
-
   hasAnalysis,
-
   onInsertClick,
-
   onAnalyzeClick,
-
   onTermClick,
-
-  onLangSwitchClick,
-
   analyzing,
-
 }: TextPanelProps) {
-
-  const displayText = showSource ? sourceText : translatedText;
-
-  const wordCount = displayText.trim() ? displayText.trim().split(/\s+/).length : 0;
-
-  const isEmpty = !sourceText.trim() && !hasAnalysis;
-
-
+  const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+  const isEmpty = !text.trim() && !hasAnalysis;
 
   return (
-
     <section className={styles.panel}>
-
       <div className={styles.toolbar}>
-
         <div className={styles.toolbarLeft}>
-
           <Button
-
             variant="secondary"
-
             size="small"
-
             className={styles.insertBtn}
-
             leftIcon={<CopyIcon />}
-
             onClick={onInsertClick}
-
           >
-
             <span className={styles.insertLabel}>Вставить текст</span>
-
           </Button>
-
-
-
-          <button
-
-            type="button"
-
-            className={[styles.langSwitch, showSource ? styles.langSwitchSource : ""].filter(Boolean).join(" ")}
-
-            onClick={onLangSwitchClick}
-
-            disabled={!hasAnalysis}
-
-            aria-label={showSource ? "Показать перевод" : "Показать исходный текст"}
-
-          >
-
-            <span className={[styles.langLabel, showSource ? styles.langActive : ""].join(" ")}>
-
-              EN
-
-            </span>
-
-            <ArrowIcon />
-
-            <span className={[styles.langLabel, !showSource && hasAnalysis ? styles.langActive : ""].join(" ")}>
-
-              RU
-
-            </span>
-
-          </button>
-
         </div>
-
-
 
         <Button
-
           variant="gradient"
-
           size="small"
-
           leftIcon={<LightningIcon />}
-
           onClick={onAnalyzeClick}
-
-          disabled={!sourceText.trim() || analyzing}
-
+          disabled={!text.trim() || analyzing}
         >
-
           {analyzing ? "Анализ…" : "Анализировать"}
-
         </Button>
-
       </div>
-
-
 
       <div className={styles.content}>
-
         <div className={styles.textCard}>
-
           <div className={styles.meta}>
-
-            <span>{showSource ? "Исходный текст" : "Перевод"}</span>
-
+            <span>Текст с переводом терминов</span>
             {!isEmpty && hasAnalysis ? (
-
               <span>
-
                 {wordCount} слов · {terms.length} терминов
-
               </span>
-
             ) : null}
-
           </div>
-
-
 
           <div className={styles.textBox}>
-
             {isEmpty ? (
-
               <TextEmptyWelcome />
-
-            ) : hasAnalysis && !showSource ? (
-
+            ) : hasAnalysis ? (
               <TermHighlightedText
-
-                text={translatedText}
-
+                text={text}
                 terms={terms}
-
                 activeTermId={activeTermId}
-
                 onTermClick={onTermClick}
-
               />
-
             ) : (
-
-              <p className={styles.rawText}>{displayText}</p>
-
+              <p className={styles.rawText}>{text}</p>
             )}
-
           </div>
-
         </div>
-
       </div>
-
     </section>
-
   );
-
 }
-
-
 
 function CopyIcon() {
   return (
@@ -258,19 +122,3 @@ function LightningIcon() {
     </Icon>
   );
 }
-
-function ArrowIcon() {
-  return (
-    <Icon size={24} viewBox="0 0 24 24" className={styles.arrowIcon}>
-      <path
-        d="M9 6l6 6-6 6"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </Icon>
-  );
-}
-
-

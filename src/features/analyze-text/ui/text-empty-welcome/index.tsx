@@ -8,12 +8,13 @@ export function TextEmptyWelcome() {
       <div className={styles.textBlock}>
         <h2 className={styles.heading}>
           <span className={styles.headingPrimary}>Добро пожаловать в новый проект!</span>
-          <span className={styles.headingAccent}>Что будем сегодня переводить?</span>
+          <span className={styles.headingAccent}>Какие термины переведём?</span>
         </h2>
         <div className={styles.description}>
           <p>
-            Добавьте текст на английском в поле ввода объёмом не более 1600 символов. Система
-            переведёт его на русский и подсветит термины уже в переведённом тексте.
+            Добавьте текст на английском объёмом не более 1600 символов. Термины будут
+            переведены на русский прямо в тексте — получится смесь EN и RU с подсветкой
+            переведённых фрагментов.
           </p>
           <p>Чем больше текст, тем выше точность!</p>
         </div>
