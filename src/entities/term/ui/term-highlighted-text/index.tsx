@@ -16,7 +16,11 @@ export function TermHighlightedText({
   activeTermId,
   onTermClick,
 }: TermHighlightedTextProps) {
-  if (!terms.length) {
+  const ranged = terms
+    .filter((term) => term.start >= 0 && term.end > term.start)
+    .sort((a, b) => a.start - b.start);
+
+  if (!ranged.length) {
     return <p className={styles.text}>{text}</p>;
   }
 
@@ -27,7 +31,8 @@ export function TermHighlightedText({
 
   let cursor = 0;
 
-  for (const term of terms) {
+  for (const term of ranged) {
+    if (term.start < cursor) continue;
     if (term.start > cursor) {
       segments.push({ type: "text", value: text.slice(cursor, term.start) });
     }

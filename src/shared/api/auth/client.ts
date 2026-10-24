@@ -1,52 +1,65 @@
-import { DemoBackendError, demoBackend } from "@/shared/lib/demo-backend";
-import type { LoginPayload, LoginResponse, RefreshResponse, UpdateProfilePayload } from "./types";
 import type { User } from "@/entities/user/model/types";
+import {
+  ApiError,
+  apiRequest,
+  clearSession,
+  readSessionEmail,
+  readToken,
+  saveSession,
+} from "@/shared/api/http";
+import type { LoginPayload, LoginResponse, UpdateProfilePayload } from "./types";
 
-class ApiError extends Error {
-  status: number;
-
-  constructor(message: string, status: number) {
-    super(message);
-    this.status = status;
-  }
+function sessionUser(): User {
+  return {
+    id: "session",
+    name: "",
+    email: readSessionEmail(),
+  };
 }
 
-function wrap<T>(fn: () => T): Promise<T> {
-  return Promise.resolve().then(() => {
-    try {
-      return fn();
-    } catch (error) {
-      if (error instanceof DemoBackendError) {
-        throw new ApiError(error.message, error.status);
-      }
-      throw error;
-    }
-  });
-}
-
-export async function apiFetch<T>(_path: string, _init?: RequestInit): Promise<T> {
-  throw new ApiError("Direct apiFetch is not supported in demo mode", 501);
+interface LoginApiResponse {
+  token?: string;
+  error?: string;
 }
 
 export const authApi = {
-  login(payload: LoginPayload) {
-    return wrap<LoginResponse>(() => demoBackend.login(payload));
+  async login(payload: LoginPayload): Promise<LoginResponse> {
+    const data = await apiRequest<LoginApiResponse>("/login", {
+      method: "POST",
+      body: payload,
+      auth: false,
+    });
+
+    const token = data.token?.trim();
+    if (!token) {
+      throw new ApiError(data.error?.trim() || "Не удалось войти", 400);
+    }
+
+    saveSession(token, payload.email.trim());
+    const user = sessionUser();
+
+    return {
+      user,
+      tokens: {
+        accessToken: token,
+        refreshToken: "",
+      },
+    };
   },
 
-  logout() {
-    return wrap<{ ok: true }>(() => demoBackend.logout());
+  async logout() {
+    clearSession();
+    return { ok: true as const };
   },
 
-  me() {
-    return wrap<{ user: User }>(() => demoBackend.me());
+  async me(): Promise<{ user: User }> {
+    if (!readToken()) throw new ApiError("Нужно войти в аккаунт", 401);
+    return { user: sessionUser() };
   },
 
-  refresh() {
-    return wrap<RefreshResponse>(() => demoBackend.refresh());
-  },
-
-  updateProfile(payload: UpdateProfilePayload) {
-    return wrap<{ user: User }>(() => demoBackend.updateProfile(payload));
+  async updateProfile(payload: UpdateProfilePayload): Promise<{ user: User }> {
+    void payload;
+    throw new ApiError("Изменение профиля пока недоступно", 501);
   },
 };
 

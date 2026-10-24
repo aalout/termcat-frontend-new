@@ -12,10 +12,9 @@ import styles from "./index.module.css";
 interface HeaderProps {
   user: User;
   onHistoryClick: () => void;
-  onUserUpdated: (user: User) => void;
 }
 
-export function Header({ user, onHistoryClick, onUserUpdated }: HeaderProps) {
+export function Header({ user, onHistoryClick }: HeaderProps) {
   return (
     <header className={styles.header}>
       <div className={styles.left}>
@@ -36,12 +35,17 @@ export function Header({ user, onHistoryClick, onUserUpdated }: HeaderProps) {
 
       <ProfileDropdown
         user={user}
-        onUserUpdated={onUserUpdated}
         triggerClassName={styles.avatar}
-        initials={getInitials(user.name)}
+        initials={user.name.trim() ? getInitials(user.name) : emailMark(user.email)}
       />
     </header>
   );
+}
+
+function emailMark(email: string) {
+  const local = email.trim().split("@")[0] ?? "";
+  if (!local) return "?";
+  return local.slice(0, 2).toUpperCase();
 }
 
 function HistoryIcon() {

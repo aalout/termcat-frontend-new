@@ -9,8 +9,8 @@ import styles from "./index.module.css";
 
 export function LoginForm() {
   const router = useRouter();
-  const [email, setEmail] = useState("alexey@termcat.ru");
-  const [password, setPassword] = useState("demo123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -60,8 +60,6 @@ export function LoginForm() {
       <Button type="submit" variant="gradient" disabled={loading} className={styles.submit}>
         {loading ? "Вход…" : "Войти"}
       </Button>
-
-      <p className={styles.hint}>alexey@termcat.ru / demo123</p>
     </form>
   );
 }

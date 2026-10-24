@@ -1,2 +1,0 @@
-/** Демо-текст (EN) — вставляет пользователь */
-export const DEMO_SOURCE_TEXT = `Large language models rely on machine learning and deep learning pipelines. Teams fine-tune them on in-domain corpora and monitor quality with BLEU score and perplexity. Transformer-based neural networks remain central to natural language processing, encoding tokens as dense embeddings. Retrieval-augmented generation helps reduce hallucination, but Russian terminology is still contested: some editors prefer «нейросети» over «нейронные сети», and many leave LLM untranslated.`;

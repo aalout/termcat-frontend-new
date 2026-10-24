@@ -34,6 +34,15 @@
   border-color: var(--color-primary-light);
 }
 
+.error {
+  margin: 0;
+  @mixin responsive padding-left, 16, 28, 40;
+  @mixin responsive padding-right, 16, 28, 40;
+  @mixin responsive padding-bottom, 8, 8, 8;
+  @mixin responsive font-size, 13, 14, 14;
+  color: var(--color-danger);
+}
+
 .langSwitch {
   display: inline-flex;
   align-items: center;

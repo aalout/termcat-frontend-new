@@ -16,6 +16,7 @@ interface TextPanelProps {
   onAnalyzeClick: () => void;
   onTermClick: (termId: string) => void;
   analyzing?: boolean;
+  error?: string;
 }
 
 export function TextPanel({
@@ -27,6 +28,7 @@ export function TextPanel({
   onAnalyzeClick,
   onTermClick,
   analyzing,
+  error,
 }: TextPanelProps) {
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
   const isEmpty = !text.trim() && !hasAnalysis;
@@ -56,6 +58,8 @@ export function TextPanel({
           {analyzing ? "Анализ…" : "Анализировать"}
         </Button>
       </div>
+
+      {error ? <p className={styles.error}>{error}</p> : null}
 
       <div className={styles.content}>
         <div className={styles.textCard}>
