@@ -30,6 +30,9 @@ export function Header({ user, onHistoryClick }: HeaderProps) {
           >
             История
           </Button>
+          <Button variant="secondary" size="small" isLink href="/stand">
+            Стенд
+          </Button>
         </div>
       </div>
 

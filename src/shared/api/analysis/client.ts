@@ -156,4 +156,14 @@ export const analysisApi = {
       })),
     };
   },
+
+  async probe(text: string): Promise<Record<string, unknown>> {
+    const trimmed = text.trim();
+    if (!trimmed) throw new ApiError("Текст обязателен", 400);
+
+    return apiRequest<Record<string, unknown>>("/analyses", {
+      method: "POST",
+      body: { text: trimmed },
+    });
+  },
 };
