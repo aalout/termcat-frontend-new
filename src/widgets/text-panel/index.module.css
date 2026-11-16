@@ -128,7 +128,9 @@
 .rawText {
   margin: 0;
   @mixin responsive font-size, 14, 15, 16;
-  line-height: 1.65;
+  @mixin responsive --line-size, 24, 24, 24;
+  @mixin responsive --line-gap, 6, 6, 6;
+  line-height: calc(var(--line-size) + var(--line-gap));
   color: var(--color-text-secondary);
   white-space: pre-wrap;
 }

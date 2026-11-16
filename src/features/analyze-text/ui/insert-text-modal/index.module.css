@@ -19,6 +19,10 @@
   max-height: min(36dvh, 240px);
   resize: none;
   overflow-y: auto;
+  @mixin responsive font-size, 14, 15, 16;
+  @mixin responsive --line-size, 24, 24, 24;
+  @mixin responsive --line-gap, 6, 6, 6;
+  line-height: calc(var(--line-size) + var(--line-gap));
 }
 
 .actions {

@@ -1,30 +1,36 @@
 .text {
   margin: 0;
   @mixin responsive font-size, 14, 15, 16;
-  line-height: 1.65;
+  @mixin responsive --line-size, 24, 24, 24;
+  @mixin responsive --line-gap, 6, 6, 6;
+  line-height: calc(var(--line-size) + var(--line-gap));
   color: var(--color-text-secondary);
   white-space: pre-wrap;
 }
 
 .term {
+  display: inline;
   @mixin responsive margin-left, 1, 1, 1;
   @mixin responsive margin-right, 1, 1, 1;
   @mixin responsive padding-left, 2, 2, 2;
   @mixin responsive padding-right, 2, 2, 2;
   border: none;
   @mixin responsive border-radius, 4, 4, 4;
-  background: var(--color-primary-tint-12);
+  background: color-mix(in srgb, var(--color-primary-light) 22%, transparent);
   color: var(--color-primary-dark);
   font: inherit;
+  line-height: inherit;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
   cursor: pointer;
   transition: background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .term:hover {
-  background: var(--color-primary-tint-25);
+  background: color-mix(in srgb, var(--color-primary-light) 40%, transparent);
 }
 
 .termActive {
-  background: var(--color-primary-tint-25);
+  background: color-mix(in srgb, var(--color-primary-light) 40%, transparent);
   @mixin responsive-focus-ring 1, 1, 1, rgba(82, 217, 225, 0.45);
 }

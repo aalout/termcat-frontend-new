@@ -25,3 +25,8 @@ export interface UpdateProfilePayload {
   password?: string;
   currentPassword?: string;
 }
+
+export interface ChangePasswordPayload {
+  oldPassword: string;
+  newPassword: string;
+}

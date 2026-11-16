@@ -1,5 +1,3 @@
-import { withBasePath } from "@/shared/lib/base-path";
-
 const TOKEN_KEY = "termcat:token";
 const EMAIL_KEY = "termcat:email";
 
@@ -35,10 +33,6 @@ export function clearSession() {
 }
 
 function apiBase() {
-  if (process.env.NEXT_PUBLIC_USE_API_PROXY === "1") {
-    return withBasePath("/backend");
-  }
-
   const base = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "");
   if (!base) throw new ApiError("Не задан NEXT_PUBLIC_API_URL", 500);
   return base;

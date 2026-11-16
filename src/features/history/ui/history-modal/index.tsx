@@ -9,6 +9,9 @@ interface HistoryModalProps {
   opened: boolean;
   onClose: () => void;
   items: HistoryItem[];
+  pendingId?: string | null;
+  error?: string;
+  onSelect: (id: string) => void;
 }
 
 function formatDate(iso: string) {
@@ -34,26 +37,42 @@ function formatDate(iso: string) {
   });
 }
 
-export function HistoryModal({ opened, onClose, items }: HistoryModalProps) {
+export function HistoryModal({
+  opened,
+  onClose,
+  items,
+  pendingId,
+  error,
+  onSelect,
+}: HistoryModalProps) {
   return (
     <Modal opened={opened} onClose={onClose} closeLabel="Закрыть">
       <div className={styles.modal}>
         <h2 className={styles.title}>История анализов</h2>
+        {error ? <p className={styles.error}>{error}</p> : null}
         <ul className={styles.list}>
           {items.length === 0 ? (
             <li className={styles.empty}>История пока пуста</li>
           ) : (
             items.map((item) => (
-              <li key={item.id} className={styles.item}>
-                <span className={styles.icon} aria-hidden>
-                  <DocIcon />
-                </span>
-                <div className={styles.content}>
-                  <p className={styles.itemTitle}>{item.title}</p>
-                  <p className={styles.meta}>
-                    {formatDate(item.createdAt)} · {item.termCount} терминов
-                  </p>
-                </div>
+              <li key={item.id}>
+                <button
+                  type="button"
+                  className={styles.item}
+                  onClick={() => onSelect(item.id)}
+                  disabled={Boolean(pendingId)}
+                >
+                  <span className={styles.icon} aria-hidden>
+                    <DocIcon />
+                  </span>
+                  <div className={styles.content}>
+                    <p className={styles.itemTitle}>{item.title}</p>
+                    <p className={styles.meta}>
+                      {formatDate(item.createdAt)} · {item.termCount} терминов
+                      {pendingId === item.id ? " · открываем…" : ""}
+                    </p>
+                  </div>
+                </button>
               </li>
             ))
           )}

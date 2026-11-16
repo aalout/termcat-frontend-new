@@ -12,6 +12,7 @@ interface TextPanelProps {
   terms: Term[];
   activeTermId: string | null;
   hasAnalysis: boolean;
+  topic?: string;
   onInsertClick: () => void;
   onAnalyzeClick: () => void;
   onTermClick: (termId: string) => void;
@@ -24,6 +25,7 @@ export function TextPanel({
   terms,
   activeTermId,
   hasAnalysis,
+  topic,
   onInsertClick,
   onAnalyzeClick,
   onTermClick,
@@ -64,7 +66,7 @@ export function TextPanel({
       <div className={styles.content}>
         <div className={styles.textCard}>
           <div className={styles.meta}>
-            <span>Текст с переводом терминов</span>
+            <span>{hasAnalysis && topic ? topic : "Текст с переводом терминов"}</span>
             {!isEmpty && hasAnalysis ? (
               <span>
                 {wordCount} слов · {terms.length} терминов

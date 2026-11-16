@@ -7,7 +7,7 @@ import {
   readToken,
   saveSession,
 } from "@/shared/api/http";
-import type { LoginPayload, LoginResponse, UpdateProfilePayload } from "./types";
+import type { ChangePasswordPayload, LoginPayload, LoginResponse, UpdateProfilePayload } from "./types";
 
 function sessionUser(): User {
   return {
@@ -57,9 +57,32 @@ export const authApi = {
     return { user: sessionUser() };
   },
 
+  async changePassword(payload: ChangePasswordPayload): Promise<void> {
+    const oldPassword = payload.oldPassword;
+    const newPassword = payload.newPassword.trim();
+    if (!oldPassword || !newPassword) {
+      throw new ApiError("Нужны текущий и новый пароль", 400);
+    }
+
+    await apiRequest<Record<string, unknown>>("/user/change-password", {
+      method: "POST",
+      body: {
+        old_password: oldPassword,
+        new_password: newPassword,
+      },
+    });
+  },
+
   async updateProfile(payload: UpdateProfilePayload): Promise<{ user: User }> {
-    void payload;
-    throw new ApiError("Изменение профиля пока недоступно", 501);
+    if (payload.password) {
+      await this.changePassword({
+        oldPassword: payload.currentPassword ?? "",
+        newPassword: payload.password,
+      });
+      return { user: sessionUser() };
+    }
+
+    throw new ApiError("Сервер сохраняет только смену пароля", 400);
   },
 };
 

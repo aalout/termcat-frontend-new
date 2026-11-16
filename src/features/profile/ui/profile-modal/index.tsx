@@ -47,15 +47,28 @@ export function ProfileModal({
     setError("");
     setLoading(true);
 
+    const profileChanged = name.trim() !== user.name.trim() || email.trim() !== user.email.trim();
+    const changingPassword = showPasswordChange && (newPassword.trim() || currentPassword);
+
+    if (!changingPassword) {
+      setError(profileChanged ? "Сервер сохраняет только смену пароля" : "");
+      if (!profileChanged) onClose();
+      setLoading(false);
+      return;
+    }
+
+    if (!currentPassword || !newPassword.trim()) {
+      setError("Введите текущий и новый пароль");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const { user: updated } = await authApi.updateProfile({
-        name,
-        email,
-        ...(showPasswordChange && newPassword
-          ? { password: newPassword, currentPassword }
-          : {}),
+      await authApi.changePassword({
+        oldPassword: currentPassword,
+        newPassword,
       });
-      onUpdated(updated);
+      onUpdated(user);
       onClose();
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Не удалось сохранить");
@@ -228,3 +241,4 @@ function LogoutIcon() {
     </Icon>
   );
 }
+

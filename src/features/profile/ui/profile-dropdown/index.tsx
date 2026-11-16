@@ -5,6 +5,7 @@ import type { User } from "@/entities/user/model/types";
 import { authApi } from "@/shared/api/auth/client";
 import { Icon } from "@/shared/ui/icon";
 import { Dropdown } from "@/shared/ui/dropdown";
+import { ProfileModal } from "@/features/profile/ui/profile-modal";
 import { useState } from "react";
 import styles from "./index.module.css";
 
@@ -17,6 +18,7 @@ interface ProfileDropdownProps {
 export function ProfileDropdown({ user, initials, triggerClassName }: ProfileDropdownProps) {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
 
   const handleLogout = async () => {
     setMenuOpen(false);
@@ -47,12 +49,32 @@ export function ProfileDropdown({ user, initials, triggerClassName }: ProfileDro
               <div className={styles.divider} />
             </>
           ) : null}
+          <button
+            type="button"
+            className={styles.menuItem}
+            onClick={() => {
+              setMenuOpen(false);
+              setProfileOpen(true);
+            }}
+          >
+            Профиль
+          </button>
           <button type="button" className={styles.menuItemDanger} onClick={handleLogout}>
             <LogoutIcon />
             Выйти
           </button>
         </div>
       </Dropdown>
+      <ProfileModal
+        opened={profileOpen}
+        onClose={() => setProfileOpen(false)}
+        user={user}
+        onUpdated={() => setProfileOpen(false)}
+        onLogout={() => {
+          setProfileOpen(false);
+          void handleLogout();
+        }}
+      />
     </>
   );
 }

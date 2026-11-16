@@ -25,14 +25,26 @@
 .item {
   display: flex;
   align-items: flex-start;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
   @mixin responsive gap, 12, 12, 12;
   @mixin responsive padding, 10, 12, 14;
   @mixin responsive border-radius, 10, 10, 12;
   transition: background-color 0.15s ease;
 }
 
-.item:hover {
-  background: var(--color-bg);
+.item:hover:not(:disabled) {
+  background: var(--color-app-bg);
+}
+
+.item:disabled {
+  cursor: wait;
+  opacity: 0.7;
 }
 
 .icon {
@@ -42,9 +54,16 @@
   @mixin responsive width, 32, 36, 36;
   @mixin responsive height, 32, 36, 36;
   @mixin responsive border-radius, 8, 8, 8;
-  background: var(--color-primary-light);
-  color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary-light) 18%, var(--color-surface));
+  color: var(--color-primary-light);
   flex-shrink: 0;
+}
+
+.error {
+  margin: 0;
+  @mixin responsive margin-bottom, 8, 8, 8;
+  @mixin responsive font-size, 13, 14, 14;
+  color: var(--color-danger);
 }
 
 .content {

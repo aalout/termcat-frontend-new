@@ -93,12 +93,7 @@ function readAnalysis(value: unknown): ApiAnalysis | null {
 }
 
 function analysisTitle(analysis: ApiAnalysis) {
-  const topic = analysis.topic?.trim();
-  if (topic) return topic;
-
-  const source = (analysis.sourceText ?? "").trim().replace(/\s+/g, " ");
-  if (!source) return "Анализ";
-  return source.length > 80 ? `${source.slice(0, 80)}…` : source;
+  return analysis.topic?.trim() || "Анализ";
 }
 
 function toAnalyzeResponse(analysis: ApiAnalysis): AnalyzeResponse {
@@ -137,6 +132,21 @@ export const analysisApi = {
     return toAnalyzeResponse(analysis);
   },
 
+  async get(id: string): Promise<AnalyzeResponse> {
+    const data = await apiRequest<Record<string, unknown>>(`/analyses/${id}`);
+    const raw = data.analyses ?? data.Analyses ?? data.analysis ?? data.Analysis;
+    const analysis = Array.isArray(raw)
+      ? raw.map(readAnalysis).find((item): item is ApiAnalysis => item !== null) ?? null
+      : readAnalysis(raw);
+
+    if (!analysis) {
+      const error = typeof data.error === "string" ? data.error.trim() : "";
+      throw new ApiError(error || "Некорректный ответ сервера", 500);
+    }
+
+    return toAnalyzeResponse(analysis);
+  },
+
   async history(): Promise<{ items: HistoryItem[] }> {
     const data = await apiRequest<Record<string, unknown>>("/analyses");
     const raw = data.analyses ?? data.Analyses;
@@ -157,13 +167,18 @@ export const analysisApi = {
     };
   },
 
-  async probe(text: string): Promise<Record<string, unknown>> {
-    const trimmed = text.trim();
-    if (!trimmed) throw new ApiError("Текст обязателен", 400);
+  async replaceTerm(analysisId: string, termId: string, translation: string): Promise<void> {
+    const termTranslated = translation.trim();
+    if (!analysisId || !termId || !termTranslated) {
+      throw new ApiError("Не хватает данных термина", 400);
+    }
 
-    return apiRequest<Record<string, unknown>>("/analyses", {
-      method: "POST",
-      body: { text: trimmed },
-    });
+    await apiRequest<Record<string, unknown>>(
+      `/analyses/${analysisId}/terms/${termId}`,
+      {
+        method: "PATCH",
+        body: { term_translated: termTranslated },
+      }
+    );
   },
 };

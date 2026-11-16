@@ -78,3 +78,36 @@ export function matchApiTerms(sourceText: string, translatedText: string, apiTer
     })
     .map(([, term]) => term);
 }
+
+/** Заменяет уже подставленный перевод в тексте и сдвигает позиции терминов справа. */
+export function applyTermTranslation(text: string, terms: Term[], termId: string, translation: string) {
+  const nextTranslation = translation.trim();
+  const current = terms.find((term) => term.id === termId);
+  if (!current || current.start < 0 || current.end < current.start) {
+    return { text, terms };
+  }
+
+  const nextText = text.slice(0, current.start) + nextTranslation + text.slice(current.end);
+  const delta = nextTranslation.length - (current.end - current.start);
+
+  return {
+    text: nextText,
+    terms: terms.map((term) => {
+      if (term.id === termId) {
+        return {
+          ...term,
+          selectedTranslation: nextTranslation,
+          end: term.start + nextTranslation.length,
+        };
+      }
+      if (term.start >= current.end) {
+        return {
+          ...term,
+          start: term.start + delta,
+          end: term.end + delta,
+        };
+      }
+      return term;
+    }),
+  };
+}
